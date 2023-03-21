@@ -22,9 +22,14 @@ if "history" not in st.session_state:
 
 def generate_answer():
     user_message = st.session_state.input_text
-    message_bot = index.query(str(user_message))
-    st.session_state.history.append({"message": user_message, "is_user": True})
-    st.session_state.history.append({"message": str(message_bot), "is_user": False})
+    
+    if any(op in user_message for op in ['+', '-', '*', '/', '%']):
+        st.session_state.history.append({"message": user_message, "is_user": True})
+        st.session_state.history.append({"message": "I'm sorry, I'm not allowed to perform calculations.", "is_user": False})
+    else:
+        message_bot = index.query(str(user_message))
+        st.session_state.history.append({"message": user_message, "is_user": True})
+        st.session_state.history.append({"message": str(message_bot), "is_user": False})
 
 col1, col2 = st.columns([1.4, 1])
 col2.image("Flipick_Logo-1.jpg", width=300)
