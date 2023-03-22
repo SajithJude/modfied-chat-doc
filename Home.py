@@ -1,6 +1,6 @@
 import streamlit as st
 import openai 
-from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader,PromptHelper
+from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader,PromptHelper,QuestionAnswerPrompt
 import os 
 from streamlit_chat import message as st_message
 
@@ -27,7 +27,18 @@ def generate_answer():
         st.session_state.history.append({"message": user_message, "is_user": True})
         st.session_state.history.append({"message": "I'm sorry, I'm not allowed to perform calculations.", "is_user": False})
     else:
-        message_bot = index.query(str(user_message))
+        query_str = str(user_message)
+        QA_PROMPT_TMPL = (
+            "We have provided context information below. \n"
+            "---------------------\n"
+            "Provide answers only from the context available in the document. \n"
+            "For answers that are outside the context of the document, respond that Im not allowed to answer outside the document. \n"
+
+            "\n---------------------\n"
+            "Given this information, please answer the question: {query_str}\n"
+        )
+        QA_PROMPT = QuestionAnswerPrompt(QA_PROMPT_TMPL)
+        message_bot = index.query(query_str, text_qa_template=QA_PROMPT)
         st.session_state.history.append({"message": user_message, "is_user": True})
         st.session_state.history.append({"message": str(message_bot), "is_user": False})
 
