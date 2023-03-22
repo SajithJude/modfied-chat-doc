@@ -10,7 +10,7 @@ st.set_page_config(page_title="Flipick Chat", page_icon=favicon)
 openai.api_key = os.getenv("API_KEY")
 
 try:
-    index = GPTSimpleVectorIndex.load_from_disk('index.json')
+    index = GPTSimpleVectorIndex.load_from_disk('index.json',model="text-davinci-003")
 except FileNotFoundError:
     # Loading from a directory
     documents = SimpleDirectoryReader('content').load_data()
