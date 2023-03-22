@@ -28,12 +28,11 @@ def generate_answer():
         st.session_state.history.append({"message": "I'm sorry, I'm not allowed to perform calculations.", "is_user": False})
     else:
         query_str = str(user_message)
+        context_str = "Provide responses only from the context of the document"
         QA_PROMPT_TMPL = (
             "We have provided context information below. \n"
             "---------------------\n"
-            "Provide answers only from the context available in the document. \n"
-            "For answers that are outside the context of the document, respond that Im not allowed to answer outside the document. \n"
-
+            "{context_str}"
             "\n---------------------\n"
             "Given this information, please answer the question: {query_str}\n"
         )
