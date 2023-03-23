@@ -38,8 +38,8 @@ def generate_answer():
         )
         QA_PROMPT = QuestionAnswerPrompt(QA_PROMPT_TMPL)
         message_bot = index.query(query_str, text_qa_template=QA_PROMPT)
-        source = message_bot..get_formatted_sources()
-        st.sidebar.write("Document Source :",source)  # added line to display source on sidebar
+        source = message_bot.get_formatted_sources()
+        st.sidebar.write("Answer Source :",source)  # added line to display source on sidebar
         st.session_state.history.append({"message": user_message, "is_user": True})
         st.session_state.history.append({"message": str(message_bot), "is_user": False})
 
