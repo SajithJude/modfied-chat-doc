@@ -28,7 +28,7 @@ def generate_answer():
         st.session_state.history.append({"message": "I'm sorry, I'm not allowed to perform calculations.", "is_user": False})
     else:
         query_str = str(user_message)
-        context_str = "All answers provided should be based only on the document in the index."
+        context_str = "Generate answers for questions only related to the document."
         QA_PROMPT_TMPL = (
             "We have provided context information below. \n"
             "---------------------\n"
