@@ -28,7 +28,7 @@ def generate_answer():
         st.session_state.history.append({"message": "I'm sorry, I'm not allowed to perform calculations.", "is_user": False})
     else:
         query_str = str(user_message)
-        context_str = "Generate answers for questions only related to the document."
+        context_str = "Generate answers for the questions that are relevant only to the documents context, throw a default answer saying I dont know for unrelevant questions."
         QA_PROMPT_TMPL = (
             "We have provided context information below. \n"
             "---------------------\n"
