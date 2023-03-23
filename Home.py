@@ -37,7 +37,7 @@ def generate_answer():
             "Given this information, please answer the question: {query_str}\n"
         )
         QA_PROMPT = QuestionAnswerPrompt(QA_PROMPT_TMPL)
-        message_bot = index.query(query_str, text_qa_template=QA_PROMPT, response_mode="compact")
+        message_bot = index.query(query_str, text_qa_template=QA_PROMPT, response_mode="compact", mode="embedding")
         # source = message_bot.get_formatted_sources()
         # st.sidebar.write("Answer Source :",source)  # added line to display source on sidebar
         st.session_state.history.append({"message": user_message, "is_user": True})
