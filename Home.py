@@ -3,7 +3,6 @@ import openai
 from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader,PromptHelper,QuestionAnswerPrompt
 import os 
 from streamlit_chat import message as st_message
-import time
 
 favicon = "favicon.ac8d93a.69085235180674d80d902fdc4b848d0b.png"
 st.set_page_config(page_title="Flipick Chat", page_icon=favicon)
@@ -22,7 +21,6 @@ if "history" not in st.session_state:
     st.session_state.history = []
 
 def generate_answer():
-    start_time = time.time()
     user_message = st.session_state.input_text
     
     if any(op in user_message for op in ['+', '-', '*', '/', '%']):
@@ -40,13 +38,10 @@ def generate_answer():
         )
         QA_PROMPT = QuestionAnswerPrompt(QA_PROMPT_TMPL)
         message_bot = index.query(query_str, text_qa_template=QA_PROMPT, response_mode="compact", mode="embedding")
-        elapsed_time = time.time() - start_time
-        if elapsed_time > 60:
-            st.session_state.history.append({"message": user_message, "is_user": True})
-            st.session_state.history.append({"message": "I'm sorry, I don't know the answer to that question.", "is_user": False})
-        else:
-            st.session_state.history.append({"message": user_message, "is_user": True})
-            st.session_state.history.append({"message": str(message_bot), "is_user": False})
+        # source = message_bot.get_formatted_sources()
+        # st.sidebar.write("Answer Source :",source)  # added line to display source on sidebar
+        st.session_state.history.append({"message": user_message, "is_user": True})
+        st.session_state.history.append({"message": str(message_bot), "is_user": False})
 
 col1, col2 = st.columns([1.4, 1])
 col2.image("Flipick_Logo-1.jpg", width=210)
