@@ -10,7 +10,7 @@ st.set_page_config(page_title="Flipick Chat", page_icon=favicon)
 openai.api_key = os.getenv("API_KEY")
 
 try:
-    index = GPTSimpleVectorIndex.load_from_disk('index.json',model="text-davinci-003")
+    index = GPTSimpleVectorIndex.load_from_disk('index.json')
 except FileNotFoundError:
     # Loading from a directory
     documents = SimpleDirectoryReader('content').load_data()
@@ -38,6 +38,8 @@ def generate_answer():
         )
         QA_PROMPT = QuestionAnswerPrompt(QA_PROMPT_TMPL)
         message_bot = index.query(query_str, text_qa_template=QA_PROMPT)
+        source = message_bot.document.metadata.get('source', 'Unknown Source')
+        st.sidebar.write("Document Source:", source)  # added line to display source on sidebar
         st.session_state.history.append({"message": user_message, "is_user": True})
         st.session_state.history.append({"message": str(message_bot), "is_user": False})
 
