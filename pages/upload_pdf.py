@@ -18,14 +18,15 @@ def extract_text(file):
 # Define function to create and save the index
 def create_index(pdf_file):
     # Load the PDF file and extract text
-    documents = extract_text(pdf_file)
+    pdf_reader = PyPDF2.PdfReader(pdf_file)
+
 
     # Create documents
     # documents = [Document(text)]
 
     # Create and save the index
     filename = pdf_file.name.split(".")[0] + ".json"
-    index = GPTSimpleVectorIndex(documents)
+    index = GPTSimpleVectorIndex(pdf_reader)
     index.save_to_disk(filename)
 
     return filename
