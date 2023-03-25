@@ -12,7 +12,7 @@ def extract_text(file):
     pdf_reader = PyPDF2.PdfReader(file)
     text = ""
     for page in range(len(pdf_reader.pages)):
-        # text += pdf_reader.getPage(page).extractText()
+        text += pdf_reader.pages[page].extractText()
     return text
 
 # Define function to create and save the index
