@@ -25,6 +25,15 @@ def create_index(index_file):
 # Create the app layout
 st.title("PDF Indexer")
 
+pdf_file = st.file_uploader("Upload a PDF file")
+
+# If a PDF file is uploaded, create and save the index
+if pdf_file:
+    filename = create_index(pdf_file)
+    st.write(filename)
+    st.success(f"Index saved to {filename}")
+
+
 # List all json files in the directory
 files = os.listdir('.')
 json_files = [f for f in files if f.endswith('.json')]
