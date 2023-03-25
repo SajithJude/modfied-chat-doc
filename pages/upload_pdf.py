@@ -10,23 +10,22 @@ st.set_page_config(page_title="PDF Indexer", page_icon=favicon)
 # Define function to extract text from PDF
 def extract_text(file):
     pdf_reader = PyPDF2.PdfReader(file)
-    # text = ""
-    # for page in range(pdf_reader.pages):
-    #     text += pdf_reader.getPage(page).extractText()
-    return pdf_reader
+    text = ""
+    for page in range(len(pdf_reader.pages)):
+        # text += pdf_reader.getPage(page).extractText()
+    return text
 
 # Define function to create and save the index
 def create_index(pdf_file):
     # Load the PDF file and extract text
-    pdf_reader = PyPDF2.PdfReader(pdf_file)
-
+    text = extract_text(pdf_file)
 
     # Create documents
-    # documents = [Document(text)]
+    documents = [Document(text)]
 
     # Create and save the index
     filename = pdf_file.name.split(".")[0] + ".json"
-    index = GPTSimpleVectorIndex(pdf_reader)
+    index = GPTSimpleVectorIndex(documents)
     index.save_to_disk(filename)
 
     return filename
