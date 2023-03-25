@@ -16,26 +16,25 @@ def extract_text(file):
     return text
 
 # Define function to create and save the index
-def create_index(pdf_file):
-    # Load the PDF file and extract text
-    text = extract_text(pdf_file)
+def create_index(index_file):
+    # Load the index file
+    index = GPTSimpleVectorIndex.load_from_disk(index_file)
 
-    # Create documents
-    documents = [Document(text)]
-
-    # Create and save the index
-    filename = pdf_file.name.split(".")[0] + ".json"
-    index = GPTSimpleVectorIndex(documents)
-    index.save_to_disk(filename)
-
-    return filename
+    return index
 
 # Create the app layout
 st.title("PDF Indexer")
-pdf_file = st.file_uploader("Upload a PDF file")
 
-# If a PDF file is uploaded, create and save the index
-if pdf_file:
-    filename = create_index(pdf_file)
-    st.write(filename)
-    st.success(f"Index saved to {filename}")
+# List all json files in the directory
+files = os.listdir('.')
+json_files = [f for f in files if f.endswith('.json')]
+
+# Create a dropdown to select the index file
+index_file = st.selectbox("Select an index file:", json_files)
+
+# If an index file is selected, create the index
+if index_file:
+    index = create_index(index_file)
+    st.success(f"Index loaded from {index_file}")
+else:
+    st.warning("No index file selected.")
