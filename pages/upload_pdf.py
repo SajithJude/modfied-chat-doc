@@ -69,30 +69,30 @@ def generate_answer():
         st.session_state.history.append({"message": str(message_bot), "is_user": False})
 
 # Create the app layout
-st.title("PDF Indexer")
+# st.title("PDF Indexer")
+with st.expander("Upload pdf and select index"):
+    pdf_file = st.file_uploader("Upload a PDF file")
 
-pdf_file = st.file_uploader("Upload a PDF file")
-
-# If a PDF file is uploaded, create and save the index
-if pdf_file:
-    filename = createindex(pdf_file)
-    st.write(filename)
-    st.success(f"Index saved to {filename}")
+    # If a PDF file is uploaded, create and save the index
+    if pdf_file:
+        filename = createindex(pdf_file)
+        st.write(filename)
+        st.success(f"Index saved to {filename}")
 
 
-# List all json files in the directory
-files = os.listdir('.')
-json_files = [f for f in files if f.endswith('.json')]
+    # List all json files in the directory
+    files = os.listdir('.')
+    json_files = [f for f in files if f.endswith('.json')]
 
-# Create a dropdown to select the index file
-index_file = st.selectbox("Select an index file:", json_files)
+    # Create a dropdown to select the index file
+    index_file = st.selectbox("Select an index file:", json_files)
 
-# If an index file is selected, create the index
-if index_file:
-    index = create_index(index_file)
-    st.success(f"Index loaded from {index_file}")
-else:
-    st.warning("No index file selected.")
+    # If an index file is selected, create the index
+    if index_file:
+        index = create_index(index_file)
+        st.success(f"Index loaded from {index_file}")
+    else:
+        st.warning("No index file selected.")
 
 col1, col2 = st.columns([1.4, 1])
 col2.image("Flipick_Logo-1.jpg", width=210)
