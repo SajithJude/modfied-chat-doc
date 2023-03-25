@@ -9,7 +9,7 @@ st.set_page_config(page_title="PDF Indexer", page_icon=favicon)
 
 # Define function to extract text from PDF
 def extract_text(file):
-    pdf_reader = PyPDF2.PdfFileReader(file)
+    pdf_reader = PyPDF2.PdfReader(file)
     text = ""
     for page in range(pdf_reader.getNumPages()):
         text += pdf_reader.getPage(page).extractText()
