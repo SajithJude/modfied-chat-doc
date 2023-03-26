@@ -100,7 +100,7 @@ st.write("")
 st.write("")
 
 input_text = st.text_input("Ask chatbot a question", key="input_text", on_change=generate_answer)
-st.caption("Disclaimer : This ChatBOT is a pilot built solely for the purpose of a demo to Indian Institute of Banking and Finance (IIBF). The BOT has been trained based on the book Treasury Management published by IIBF. All content rights vest with IIBF")
+# st.caption("Disclaimer : This ChatBOT is a pilot built solely for the purpose of a demo to Indian Institute of Banking and Finance (IIBF). The BOT has been trained based on the book Treasury Management published by IIBF. All content rights vest with IIBF")
 
 # Display the conversation history
 for chat in st.session_state.history:
