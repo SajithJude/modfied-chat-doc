@@ -18,6 +18,12 @@ from streamlit_chat import message as st_message
 
 openai.api_key = os.getenv("API_KEY")
 
+
+# Define the function to extract the zip file and save the contents to a directory
+def extract_zipfile(zip_file, save_directory):
+    with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+        zip_ref.extractall(save_directory)
+
 # Create a file uploader component for the zip file
 zip_file = st.file_uploader('Upload a zip file', type='zip')
 
