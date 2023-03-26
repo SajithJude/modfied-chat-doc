@@ -7,7 +7,7 @@ url = st.text_input("Enter some URL")
 
 ques = st.text_input("Ask yout question")
 
-if st.buttoon("Submit question"):
+if st.button("Submit question"):
 
     input ="Use thw following source url :"+ str(url) + " : Inorder to answer the following question  : "+ str(ques)
     response = openai.Completion.create(
