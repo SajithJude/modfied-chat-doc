@@ -42,12 +42,12 @@ if zip_file is not None:
 
 
 try:
-    index = GPTSimpleVectorIndex.load_from_disk('index.json')
+    index = GPTSimpleVectorIndex.load_from_disk('indx.json')
 except FileNotFoundError:
     # Loading from a directory
     documents = SimpleDirectoryReader('scorm').load_data()
     index = GPTSimpleVectorIndex(documents)
-    index.save_to_disk('index.json')
+    index.save_to_disk('indx.json')
 
 if "history" not in st.session_state:
     st.session_state.history = []
