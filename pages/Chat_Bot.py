@@ -3,7 +3,7 @@ import os
 import openai 
 
 
-url = st.text_inpput("Enter some URL")
+url = st.text_input("Enter some URL")
 
 ques = st.text_input("Ask yout question")
 
